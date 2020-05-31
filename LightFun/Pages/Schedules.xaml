@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="LightFun.Schedules"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightFun"
+    xmlns:models="using:LightFun.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Name="ColorItemTemplate" x:DataType="models:ColorItem">
+                <Rectangle Fill="{x:Bind FillColorValue}" Width="50" Height="50" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <RelativePanel Grid.Row="0" Grid.Column="0"
+                       Margin="20, 0, 0, 0">
+            <StackPanel Orientation="Horizontal"  
+                        RelativePanel.AlignHorizontalCenterWithPanel="True">
+            <CalendarDatePicker PlaceholderText="Pick a date" 
+                                Header="Date" />
+            <TimePicker Header="Event time" MinuteIncrement="15" />
+            </StackPanel>
+        </RelativePanel>
+        <RelativePanel Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="20, 0, 0, 0">
+            <GridView
+                  Name="ColorPickerGridView"
+                  IsItemClickEnabled="True"
+                  SelectionMode="Single"
+                  ItemsSource="{x:Bind availableColors}"
+                  ItemTemplate="{StaticResource ColorItemTemplate}"
+                  SelectionChanged="ColorPickerGridView_SelectionChanged"
+                  >
+            </GridView>
+        </RelativePanel>
+    </Grid>
+</Page>

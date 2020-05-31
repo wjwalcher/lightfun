@@ -1,0 +1,157 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="LightFun.Scenes"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightFun"
+    xmlns:models="using:LightFun.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:ConnectionId='2' x:Name="SceneItemTemplate"                              >
+                <StackPanel x:ConnectionId='12' Width="150"
+                            Height="80"
+                            >
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="{Binding SceneImage}" />
+                    </StackPanel.Background>
+                    <TextBlock x:ConnectionId='13'                           TextWrapping="Wrap" FontSize="15" Margin="5" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:ConnectionId='3' x:Name="SceneConfigItemTemplate"                                    >
+                <StackPanel x:ConnectionId='9' Width="150"
+                            Height="80"
+                            >
+                    <StackPanel.Background>
+                        <SolidColorBrush x:ConnectionId='10'                            />
+                    </StackPanel.Background>
+                    <TextBlock x:ConnectionId='11'                               TextWrapping="Wrap" FontSize="15" Margin="5" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:ConnectionId='4' x:Name="ColorItemTemplate"                              >
+                <Rectangle x:ConnectionId='8'                                Width="50" Height="50" />
+            </DataTemplate>
+            <DataTemplate x:ConnectionId='5' x:Name="LightItemTemplate"                              >
+                <StackPanel x:ConnectionId='6' Width="100" Height="100" Background="{ThemeResource ButtonBackgroundThemeBrush}">
+                    <TextBlock Margin="10" FontFamily="Segoe MDL2 Assets" Text="&#xE82F;" FontSize="20"/>
+                    <TextBlock x:ConnectionId='7'                           Margin="10" TextWrapping="WrapWholeWords" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <RelativePanel Grid.Row="0">
+            <TextBlock Text="Available Scenes:" 
+                       Margin="10"
+                       RelativePanel.AlignLeftWithPanel="True" />
+        </RelativePanel>
+            <GridView x:ConnectionId='14'
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  Name="ScenesPickerGridView"
+                  IsItemClickEnabled="True"
+                  SelectionMode="Single"
+                                                        
+                  ItemTemplate="{StaticResource SceneItemTemplate}"
+                                                                          
+                  Margin="10"
+                  >
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" 
+                                                MaximumRowsOrColumns="4" 
+                                                Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+            <Button Content="Click to Open Scene Maker"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalAlignment="Top">
+                <Button.Flyout>
+                    <Flyout>
+                        <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton GroupName="Cycle" Content="Cycle Color" IsChecked="False" />
+                                    <RadioButton GroupName="Cycle" Content="Do Not Cycle" IsChecked="False" />
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Left">
+                                    <Slider x:ConnectionId='23' x:Name="BrightnessSlider" Minimum="0" Maximum="100" Width="150" 
+                                            MaxWidth="300" Header="Brightness" />
+                                    <TextBox x:ConnectionId='24' Name="SceneNameTextBox" Header="Scene Name" MaxWidth="200" />
+                                    <TextBox x:ConnectionId='25' Name="SceneImageSourceText" Header="Scene Image URI (Optional)" MaxWidth="200" />
+                                </StackPanel>
+                            
+                                <GridView x:ConnectionId='15'
+                                  Margin="0, 10, 0, 0"
+                                  HorizontalAlignment="Left"
+                                  Name="ColorPickerGridView"
+                                  IsItemClickEnabled="True"
+                                  SelectionMode="Single"
+                                                                        
+                                  ItemTemplate="{StaticResource ColorItemTemplate}"
+                                                                                         >
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" 
+                                                MaximumRowsOrColumns="6" 
+                                                Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                            </GridView>
+                                <GridView x:ConnectionId='16'
+                                        Name="SceneConfigGridView"
+                                        IsItemClickEnabled="True"
+                                        SelectionMode="Single"
+                                                                                 
+                                        ItemTemplate="{StaticResource SceneConfigItemTemplate}"
+                                                                                               
+                                        Margin="20">
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" 
+                                                MaximumRowsOrColumns="2" 
+                                                Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                            </GridView>
+               
+                                <GridView x:ConnectionId='17'
+                                      Name="LightPickerGridView"
+                                      IsItemClickEnabled="True"
+                                      SelectionMode="Multiple"
+                                                                            
+                                      ItemTemplate="{StaticResource LightItemTemplate}"
+                                                                                             
+                                      Margin="20">
+                                    <GridView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ItemsWrapGrid x:Name="MaxItemsWrapGrid" 
+                                                MaximumRowsOrColumns="3" 
+                                                Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </GridView.ItemsPanel>
+                                </GridView>
+                            <Button x:ConnectionId='18'                                   Margin="0, 0, 0, 10">Add to scene</Button>
+                            <Button x:ConnectionId='19'                     >Commit Scene</Button>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+    </ScrollViewer>
+</Page>
+
